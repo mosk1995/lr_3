@@ -26,14 +26,17 @@ public class Main {
             text+=scanner.nextLine()+" ";
         }
         //Замена номера телефона
-        Pattern pattern = Pattern.compile("\\+[0-9]{11}"); //Регулярное выражение для поиска нормальных телефонов
+        Pattern pattern = Pattern.compile("\\+[7][\\s(]{0,6}[0-9]{3}[\\s)]{0,6}[0-9]{3}[\\s\\-]{0,3}[0-9]{2}[\\s\\-]{0,3}[0-9]{2}"); //Регулярное выражение для поиска нормальных телефонов
         Matcher m = pattern.matcher(text);
 
         String rez="";
         List<String> allMatches = new ArrayList<String>();
         while (m.find()) {
             String oldPhone=m.group();
-            String newPhone="+2"+"("+oldPhone.substring(2,5)+") "+oldPhone.substring(5,8)+"-"+oldPhone.substring(8,10)+"-"+oldPhone.substring(10,12);
+            String clearOldPhone="";
+            clearOldPhone=oldPhone.replaceAll("[\\s\\-()]", "");
+            //System.out.println(clearOldPhone+"\n");
+            String newPhone="+2"+"("+clearOldPhone.substring(2,5)+")"+clearOldPhone.substring(5,8)+"-"+clearOldPhone.substring(8,10)+"-"+clearOldPhone.substring(10,12);
             text=text.replace(oldPhone,newPhone);
 
         }
